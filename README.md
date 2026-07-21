@@ -1,71 +1,50 @@
-# xfetch api
+<h1 align="center">
+<img src="https://raw.githubusercontent.com/xfetch-cli/assets/main/logo/banner/xfetch.svg" width="30%" alt="XFetch banner" />API</h1>
 
 <p>
-  Shared contracts for the <strong>xfetch</strong> ecosystem.
+  <em>
+    Shared crates for the <strong><a href="https://github.com/xfetch-cli/xfetch">xfetch</a></strong> ecosystem.
+  </em>
 </p>
 
 <p>
-  This repository is intentionally general. It can host multiple shared crates over time,
-  while the first extracted contract is the plugin SDK used by the core, official plugins,
-  and future third-party plugins.
+  Today this repository contains the public plugin SDK used by the core,
+  official plugins, and third-party plugin authors.
 </p>
-
-<h2>Repository Layout</h2>
-
-<ul>
-  <li><code>crates/plugin-api</code>: public plugin SDK with protocol types, validation, typed entrypoints, and examples.</li>
-  <li><code>docs/README.md</code>: protocol overview and repository guidelines.</li>
-</ul>
 
 <h2>Current Scope</h2>
 
+<ul>
+  <li><code>crates/plugin-api</code>: shared protocol crate for xfetch plugins.</li>
+  <li><code>docs/</code>: focused documentation for setup, protocol, SDK usage, and examples.</li>
+</ul>
+
+<h2>Main Crate</h2>
+
 <p>
-  The first public crate already includes real developer-facing capabilities:
+  The first public crate in this repository is <code>xfetch-plugin-api</code>.
 </p>
 
 <ul>
-  <li>Protocol version constants.</li>
-  <li>Plugin kind helpers and validation.</li>
-  <li>Shared request and response types.</li>
-  <li>Typed helpers for reading requests, defaulting optional args, and writing responses.</li>
-  <li>Examples that compile as part of the crate.</li>
-  <li>Structured error types for plugin authors.</li>
+  <li>Defines the wire protocol used between <code>xfetch</code> and plugins.</li>
+  <li>Provides typed helpers for reading requests and writing responses.</li>
+  <li>Exposes a stable base for official and third-party plugin development.</li>
 </ul>
 
-<p>
-  User-facing configuration models remain in the <strong>xfetch</strong> core for now.
-</p>
-
-<h2>Public Goal</h2>
-
-<p>
-  The plugin crate is not only an internal bridge. It is intended to be the supported way for
-  developers to create plugins that communicate with <strong>xfetch</strong>.
-</p>
-
-<h2>Professional Direction</h2>
+<h2>Documentation</h2>
 
 <ul>
-  <li>Keep the wire protocol stable and versioned.</li>
-  <li>Move repeated protocol logic out of plugin binaries.</li>
-  <li>Give third-party authors a small but production-ready SDK.</li>
-  <li>Keep official plugins on the same public entrypoints used by external authors.</li>
-  <li>Expand this repository with more shared crates only when the project genuinely needs them.</li>
+  <li><a href="./docs/README.md">Documentation Index</a></li>
+  <li><a href="./docs/getting-started.md">Getting Started</a></li>
+  <li><a href="./docs/plugin-sdk.md">Plugin SDK</a></li>
+  <li><a href="./docs/protocol.md">Protocol Reference</a></li>
+  <li><a href="./docs/examples.md">Examples</a></li>
 </ul>
 
-<h2>Goals</h2>
+<h2>Notes</h2>
 
 <ul>
-  <li>Reduce protocol duplication between the core and official plugins.</li>
-  <li>Make compatibility changes explicit and versioned.</li>
-  <li>Prepare the ecosystem for third-party plugin authors.</li>
-  <li>Keep the repository broad enough for future shared contracts.</li>
+  <li>This repository owns shared contracts, not end-user config files.</li>
+  <li>Official plugins are expected to use the same public SDK as external plugins.</li>
+  <li>Protocol changes should land here first and then be adopted by the core and plugin repos.</li>
 </ul>
-
-<h2>Next Steps</h2>
-
-<ol>
-  <li>Publish this repository so other repos can depend on it safely by Git or releases.</li>
-  <li>Add compatibility tests across repositories.</li>
-  <li>Consider templates or starter repositories for third-party plugin authors.</li>
-</ol>
