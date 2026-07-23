@@ -1,0 +1,16 @@
+name: Bug Report
+description: Report an issue with the plugin API or SDK
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: API version / commit
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+    validations:
+      required: true

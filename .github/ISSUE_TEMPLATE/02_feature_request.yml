@@ -1,0 +1,10 @@
+name: Feature Request
+description: Suggest an improvement to the API / SDK
+labels: [enhancement]
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to add or change in the API?
+    validations:
+      required: true
