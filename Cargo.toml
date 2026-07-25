@@ -1,5 +1,6 @@
 [workspace]
 members = [
   "crates/plugin-api",
+  "crates/extension-api",
 ]
 resolver = "2"
