@@ -17,7 +17,9 @@
 <h2>The solution: <code>with_timeout</code></h2>
 
 <p>
-  Both crates expose the same helper:
+  All three crates (<code>xfetch-plugin-api</code>,
+  <code>xfetch-extension-api</code>, <code>xfetch-effect-api</code>) expose the
+  same helper:
 </p>
 
 <pre><code class="language-rust">pub fn with_timeout&lt;T: Send + 'static&gt;(
@@ -52,7 +54,8 @@
   </li>
   <li>
     On <code>Err(TimedOut)</code>, respond with fallback lines (info
-    plugins) or exit with an error (animation plugins, extensions).
+    plugins), fallback frames or the unmodified lines (effects), or exit with
+    an error (animation plugins, extensions).
   </li>
 </ul>
 
