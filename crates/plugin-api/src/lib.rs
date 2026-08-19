@@ -4,6 +4,7 @@ pub mod entrypoints;
 pub mod error;
 pub mod io;
 pub mod protocol;
+pub mod timeout;
 
 pub use entrypoints::{
     InfoPluginInput, read_info_plugin_args_or_default, read_info_plugin_request,
@@ -18,3 +19,4 @@ pub use protocol::{
     LogoAnimationRequest, LogoAnimationResponse, PluginKind, KIND_INFO_PROVIDER,
     KIND_LOGO_ANIMATION, PROTOCOL_VERSION,
 };
+pub use timeout::{TimedOut, with_timeout};

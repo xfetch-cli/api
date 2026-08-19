@@ -10,6 +10,7 @@
   <li><a href="./getting-started.md">Getting Started</a>: dependency setup and first integration steps.</li>
   <li><a href="./plugin-sdk.md">Plugin SDK</a>: public types, entrypoints, and error handling.</li>
   <li><a href="./protocol.md">Protocol Reference</a>: wire format, kinds, versioning, and JSON examples.</li>
+  <li><a href="./timeouts.md">Timeouts</a>: the <code>with_timeout</code> helper and runtime budgets.</li>
   <li><a href="./examples.md">Examples</a>: runnable patterns based on the crate examples.</li>
 </ul>
 
