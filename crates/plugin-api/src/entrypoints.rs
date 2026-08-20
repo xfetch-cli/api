@@ -44,10 +44,7 @@ pub fn read_info_plugin_request<T: DeserializeOwned>() -> Result<InfoPluginInput
     request.validate()?;
     let args = request.parse_args()?;
 
-    Ok(InfoPluginInput {
-        request,
-        args,
-    })
+    Ok(InfoPluginInput { request, args })
 }
 
 pub fn read_info_plugin_args_or_default<T>() -> Result<T>

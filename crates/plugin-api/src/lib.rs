@@ -15,8 +15,8 @@ pub use io::{
     parse_json_slice, parse_json_str, read_json_from_stdin, to_json_vec, write_json_to_stdout,
 };
 pub use protocol::{
-    AnimationFrame, EmptyArgs, InfoPluginRequest, InfoPluginResponse, LogoAnimationArgs,
-    LogoAnimationRequest, LogoAnimationResponse, PluginKind, KIND_INFO_PROVIDER,
-    KIND_LOGO_ANIMATION, PROTOCOL_VERSION,
+    AnimationFrame, EmptyArgs, InfoPluginRequest, InfoPluginResponse, KIND_INFO_PROVIDER,
+    KIND_LOGO_ANIMATION, LogoAnimationArgs, LogoAnimationRequest, LogoAnimationResponse,
+    PROTOCOL_VERSION, PluginKind,
 };
 pub use timeout::{TimedOut, with_timeout};

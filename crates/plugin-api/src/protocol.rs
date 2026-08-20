@@ -173,11 +173,8 @@ mod tests {
 
     #[test]
     fn logo_request_defaults_to_current_protocol_version() {
-        let request = LogoAnimationRequest::new(
-            vec!["line".to_string()],
-            None,
-            LogoAnimationArgs::default(),
-        );
+        let request =
+            LogoAnimationRequest::new(vec!["line".to_string()], None, LogoAnimationArgs::default());
 
         assert_eq!(request.version, PROTOCOL_VERSION);
         assert_eq!(request.kind, KIND_LOGO_ANIMATION);

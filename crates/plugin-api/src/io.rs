@@ -1,6 +1,6 @@
 use crate::error::{PluginApiError, Result};
-use serde::de::DeserializeOwned;
 use serde::Serialize;
+use serde::de::DeserializeOwned;
 use std::io::{self, Read, Write};
 
 pub fn parse_json_str<T: DeserializeOwned>(input: &str) -> Result<T> {
