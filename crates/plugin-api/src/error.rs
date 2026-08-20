@@ -36,7 +36,9 @@ impl fmt::Display for PluginApiError {
                 )
             }
             Self::InvalidArgs(err) => write!(f, "Failed to parse plugin args: {}", err),
-            Self::EmptyAnimationFrames => write!(f, "Animation plugins must return at least one frame"),
+            Self::EmptyAnimationFrames => {
+                write!(f, "Animation plugins must return at least one frame")
+            }
         }
     }
 }

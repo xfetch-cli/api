@@ -15,9 +15,7 @@ fn main() {
         }
     };
 
-    let label = args
-        .label
-        .unwrap_or_else(|| "example".to_string());
+    let label = args.label.unwrap_or_else(|| "example".to_string());
 
     if let Err(err) = write_info_lines(vec![format!("plugin says: {}", label)]) {
         eprintln!("{}", err);
