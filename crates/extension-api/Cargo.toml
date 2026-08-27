@@ -3,6 +3,8 @@ name = "xfetch-extension-api"
 version = "0.1.0"
 edition = "2024"
 license = "MIT"
+description = "Shared extension protocol types and IO helpers for xfetch"
+repository = "https://github.com/xfetch-cli/api"
 
 [dependencies]
 serde = { version = "1.0.228", features = ["derive"] }
