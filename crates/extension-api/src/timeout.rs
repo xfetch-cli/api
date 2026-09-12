@@ -6,7 +6,9 @@
 //! when the budget elapses; the extension can then respond with a fallback
 //! config and exit normally, so the core's `wait_with_output` always returns.
 
+#[cfg(not(target_arch = "wasm32"))]
 use std::sync::mpsc;
+#[cfg(not(target_arch = "wasm32"))]
 use std::thread;
 use std::time::Duration;
 
@@ -18,6 +20,7 @@ pub struct TimedOut;
 ///
 /// Returns `Ok(task())` when the task finishes in time, `Err(TimedOut)`
 /// otherwise. The worker thread keeps running until the process exits.
+#[cfg(not(target_arch = "wasm32"))]
 pub fn with_timeout<T: Send + 'static>(
     budget: Duration,
     task: impl FnOnce() -> T + Send + 'static,
@@ -27,6 +30,14 @@ pub fn with_timeout<T: Send + 'static>(
         let _ = tx.send(task());
     });
     rx.recv_timeout(budget).map_err(|_| TimedOut)
+}
+
+/// Wasm guests run single-threaded, so no worker thread is started: the host
+/// enforces the extensions invocation deadline through epoch interruption and
+/// traps the guest when the budget is exhausted.
+#[cfg(target_arch = "wasm32")]
+pub fn with_timeout<T>(_budget: Duration, task: impl FnOnce() -> T) -> Result<T, TimedOut> {
+    Ok(task())
 }
 
 #[cfg(test)]

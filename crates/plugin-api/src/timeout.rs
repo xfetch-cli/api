@@ -8,7 +8,9 @@
 //! `wait_with_output` always returns. When the plugin process exits, the
 //! worker thread is killed with it.
 
+#[cfg(not(target_arch = "wasm32"))]
 use std::sync::mpsc;
+#[cfg(not(target_arch = "wasm32"))]
 use std::thread;
 use std::time::Duration;
 
@@ -31,6 +33,7 @@ pub struct TimedOut;
 /// let result = with_timeout(Duration::from_secs(1), || 2 + 2);
 /// assert_eq!(result, Ok(4));
 /// ```
+#[cfg(not(target_arch = "wasm32"))]
 pub fn with_timeout<T: Send + 'static>(
     budget: Duration,
     task: impl FnOnce() -> T + Send + 'static,
@@ -40,6 +43,14 @@ pub fn with_timeout<T: Send + 'static>(
         let _ = tx.send(task());
     });
     rx.recv_timeout(budget).map_err(|_| TimedOut)
+}
+
+/// Wasm guests run single-threaded, so no worker thread is started: the host
+/// enforces the plugins invocation deadline through epoch interruption and
+/// traps the guest when the budget is exhausted.
+#[cfg(target_arch = "wasm32")]
+pub fn with_timeout<T>(_budget: Duration, task: impl FnOnce() -> T) -> Result<T, TimedOut> {
+    Ok(task())
 }
 
 #[cfg(test)]

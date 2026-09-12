@@ -5,6 +5,12 @@
   effect authors are expected to use.
 </p>
 
+<p>
+  WebAssembly guests share this same protocol and SDK types; see
+  <a href="./wasm-guests.md">WebAssembly Guests</a> for the manifest, host
+  calls and per-language builds.
+</p>
+
 <h2>Core Types</h2>
 
 <ul>
