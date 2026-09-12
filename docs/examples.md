@@ -114,6 +114,19 @@ fn main() {
     write_effect_frames(frames).expect("write frames");
 }</code></pre>
 
+<h2>WebAssembly Examples</h2>
+
+<p>
+  Runnable wasm guests live in the ecosystem repositories, one per language
+  and shape:
+</p>
+
+<ul>
+  <li><code>xfetch-cli/plugins</code>: <code>wasm-crypto</code> (Rust, HTTP), <code>wasm-ip-geo</code> (component, HTTP), <code>wasm-pacman</code> (Go, exec), <code>wasm-proc</code> (freestanding C, fs).</li>
+  <li><code>xfetch-cli/effects</code>: <code>wasm-matrix</code> (Rust), <code>wasm-python-pulse</code> (component).</li>
+  <li><code>xfetch-cli/extensions</code>: <code>wasm-night-mode</code> (Rust), <code>wasm-updates-footer</code> (Go, exec), <code>wasm-lang-labels</code> (component, env).</li>
+</ul>
+
 <h2>Extension Example</h2>
 
 <pre><code class="language-rust">use std::io::Read;

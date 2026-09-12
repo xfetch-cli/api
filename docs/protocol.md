@@ -106,6 +106,29 @@
   "config": { "show_colors": false, "modules": ["cpu", "memory"] }
 }</code></pre>
 
+<h2>WebAssembly Guests</h2>
+
+<p>
+  WebAssembly core modules use this same protocol unchanged: the request is
+  written to WASI stdin and the response read from stdout. Additionally they
+  may call the host bridge documented in
+  <code>xfetch/docs/WASM.md</code>:
+</p>
+
+<ul>
+  <li><code>http</code>: <code>{ method, url, headers, body_base64?, timeout_ms? }</code> &rarr; <code>{ status, headers, body_base64 }</code>.</li>
+  <li><code>exec</code>: <code>{ program, args, stdin_base64?, env?, timeout_ms? }</code> &rarr; <code>{ code, stdout_base64, stderr_base64 }</code>.</li>
+  <li><code>log</code>: <code>{ level, message }</code>.</li>
+  <li><code>version</code>: <code>{ runtime, protocol, xfetch, guest_kind }</code>.</li>
+</ul>
+
+<p>
+  Responses are wrapped as <code>{"ok":true,"value":...}</code> or
+  <code>{"ok":false,"error":{"kind","message"}}</code>. Component guests
+  bypass JSON host calls and use the typed interface defined in
+  <a href="../wit/xfetch-runtime.wit"><code>wit/xfetch-runtime.wit</code></a>.
+</p>
+
 <h2>Compatibility</h2>
 
 <p>

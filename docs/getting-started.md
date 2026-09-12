@@ -1,9 +1,11 @@
 # Getting Started
 
 <p>
-  This repository hosts three public crates: <code>xfetch-plugin-api</code>
-  (plugins), <code>xfetch-extension-api</code> (extensions), and
-  <code>xfetch-effect-api</code> (effects).
+  This repository hosts four public crates: <code>xfetch-plugin-api</code>
+  (plugins), <code>xfetch-extension-api</code> (extensions),
+  <code>xfetch-effect-api</code> (effects), and <code>xfetch-guest-api</code>
+  (host calls for WebAssembly guests). The component protocol lives in
+  <code>wit/xfetch-runtime.wit</code>.
 </p>
 
 <h2>Git Dependency</h2>
@@ -35,6 +37,14 @@ xfetch-effect-api = { path = "../api/crates/effect-api" }
   Plugins, extensions and effects are standalone executables. The core writes
   one JSON request to <code>stdin</code>, the program reads it, and writes one
   JSON response to <code>stdout</code>.
+</p>
+
+<p>
+  The same contract applies to WebAssembly core modules
+  (<code>wasm32-wasip1</code>). Components export <code>run</code> from the
+  WIT world instead. See
+  <a href="./wasm-guests.md">WebAssembly Guests</a> to build in Rust, Python,
+  Go or C, with manifest-based capabilities and sandbox limits.
 </p>
 
 <h2>Next Step</h2>

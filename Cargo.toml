@@ -3,5 +3,6 @@ members = [
   "crates/plugin-api",
   "crates/extension-api",
   "crates/effect-api",
+  "crates/guest-api",
 ]
 resolver = "2"

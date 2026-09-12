@@ -1,0 +1,118 @@
+/// XFetch guest runtime protocol.
+///
+/// Canonical source of truth for WebAssembly components that run as xfetch
+/// plugins, effects or extensions. Core-module guests (target
+/// `wasm32-wasip1`) use the JSON stdin/stdout protocol instead; this package
+/// only applies to the component model.
+///
+/// The exported `run` function receives the same JSON request documented in
+/// `api/docs/protocol.md` and must return the JSON response. The request's
+/// `kind` field selects the contract (`logo_animation`, `info_provider`,
+/// `effect` or `config_provider`).
+///
+/// Host capabilities are deny-by-default: a component can only call
+/// `http-request` and `exec` when its manifest allowlist accepts the request.
+/// `log` is always available; `protocol-version` exposes the host runtime
+/// protocol version.
+package xfetch:runtime@0.1.0;
+
+/// Shared types for the `host` interface.
+interface types {
+    /// One HTTP request issued by the guest.
+    record http-request {
+        /// HTTP method (`GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `PATCH`).
+        method: string,
+        /// Absolute URL, matched against the manifest `http.allow` patterns.
+        url: string,
+        /// Additional request headers.
+        headers: list<tuple<string, string>>,
+        /// Optional request body.
+        body: option<list<u8>>,
+        /// Per-call deadline; clamped to the remaining guest budget.
+        timeout-ms: option<u64>,
+    }
+
+    /// The HTTP response returned by the host.
+    record http-response {
+        /// HTTP status code.
+        status: u16,
+        /// Response headers; repeated names are preserved.
+        headers: list<tuple<string, string>>,
+        /// Raw response body, capped by the manifest `host_call_kb` limit.
+        body: list<u8>,
+    }
+
+    /// One external process execution request.
+    record exec-request {
+        /// Program name or path, matched against `exec.allow` patterns.
+        program: string,
+        /// Program arguments, passed verbatim (no shell interpretation).
+        args: list<string>,
+        /// Optional bytes written to the child's stdin.
+        stdin: option<list<u8>>,
+        /// Environment variables intersected with the manifest allowlist.
+        env: list<tuple<string, string>>,
+        /// Per-call deadline; clamped to the remaining guest budget.
+        timeout-ms: option<u64>,
+    }
+
+    /// The result of running an external process.
+    record exec-result {
+        /// Process exit code; negative when terminated by a signal.
+        code: s32,
+        /// Captured stdout, capped by the manifest `host_call_kb` limit.
+        stdout: list<u8>,
+        /// Captured stderr, capped by the manifest `host_call_kb` limit.
+        stderr: list<u8>,
+    }
+
+    /// Capability or runtime failure returned by the host.
+    variant host-error {
+        /// The manifest does not allow the requested capability.
+        denied(string),
+        /// The operation failed (network error, missing program, ...).
+        failed(string),
+        /// The operation exceeded its deadline.
+        timeout(string),
+        /// The response exceeded the configured size limit.
+        too-large(string),
+        /// The request is not supported by this host version.
+        unsupported(string),
+    }
+}
+
+/// Host capabilities available to guests (deny-by-default).
+interface host {
+    use types.{http-request, http-response, exec-request, exec-result, host-error};
+
+    /// Performs an HTTP request when the manifest allowlist accepts the URL.
+    /// Redirects are re-checked against the allowlist on every hop.
+    fetch: func(req: http-request) -> result<http-response, host-error>;
+
+    /// Runs an external program when the manifest allowlist accepts it.
+    exec: func(req: exec-request) -> result<exec-result, host-error>;
+
+    /// Writes a diagnostic message through the host log (stderr).
+    log: func(level: string, message: string);
+
+    /// Returns the host runtime protocol version (currently `1`).
+    protocol-version: func() -> u32;
+}
+
+/// A plugin guest: info providers and logo animations.
+world plugin {
+    import host;
+    export run: func(request: string) -> result<string, string>;
+}
+
+/// An effect guest: intro animations over rendered content lines.
+world effect {
+    import host;
+    export run: func(request: string) -> result<string, string>;
+}
+
+/// An extension guest: config providers that transform the loaded config.
+world extension {
+    import host;
+    export run: func(request: string) -> result<string, string>;
+}

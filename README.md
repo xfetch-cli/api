@@ -18,7 +18,9 @@
   <li><code>crates/plugin-api</code>: shared protocol crate for xfetch plugins.</li>
   <li><code>crates/extension-api</code>: shared protocol crate for xfetch extensions (config providers).</li>
   <li><code>crates/effect-api</code>: shared protocol crate for xfetch effects (intro animations over the info lines).</li>
-  <li><code>docs/</code>: focused documentation for setup, protocol, SDK usage, and examples.</li>
+  <li><code>crates/guest-api</code>: host-call helpers for WebAssembly guests (<code>http_request</code>, <code>exec</code>, <code>log</code>, <code>protocol_version</code>).</li>
+  <li><code>wit/xfetch-runtime.wit</code>: component-model contract (<code>plugin</code>, <code>effect</code> and <code>extension</code> worlds).</li>
+  <li><code>docs/</code>: focused documentation for setup, protocol, SDK usage, wasm guests, and examples.</li>
 </ul>
 
 <h2>Main Crate</h2>

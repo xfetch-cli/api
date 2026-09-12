@@ -27,8 +27,18 @@
     task: impl FnOnce() -> T + Send + 'static,
 ) -&gt; Result&lt;T, TimedOut&gt;</code></pre>
 
+<p>
+  On <code>wasm32</code> guests the helper takes a simpler signature
+  (<code>with_timeout&lt;T&gt;(budget, task)</code>): WASI preview 1 has no
+  worker threads, so the task runs inline and the host enforces the invocation
+  deadline through wasmtime epochs, using the manifest
+  <code>timeout_ms</code> or the config <code>timeout_secs</code> value. Guest
+  code does not need conditional compilation; the same source works natively
+  and as a guest.
+</p>
+
 <ul>
-  <li>The task runs on a worker thread.</li>
+  <li>The task runs on a worker thread (native) or inline (wasm).</li>
   <li>
     <code>Ok(task())</code> is returned when it finishes within
     <code>budget</code>.
