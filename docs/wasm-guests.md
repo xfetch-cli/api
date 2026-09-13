@@ -54,6 +54,12 @@ serde_json = "1"
 xfetch-plugin-api = "0.2"
 xfetch-guest-api = "0.2"</code></pre>
 
+<p>
+  Only the guest depends on <code>xfetch-guest-api</code>; the core does not
+  pull it. With <code>"0.2"</code> Cargo resolves the newest compatible 0.2.x
+  release, so patch updates arrive without changes on your side.
+</p>
+
 <pre><code class="language-rust">use serde::Deserialize;
 use xfetch_guest_api::{http_request, log, protocol_version};
 use xfetch_plugin_api::{read_info_plugin_args_or_default, write_info_lines};
@@ -200,7 +206,8 @@ void _start(void) {
 
 <p>
   The crate also exports <code>xfetch_alloc</code> and <code>xfetch_free</code>
-  automatically, which the host needs to place responses in guest memory.
+  automatically, which the host needs to place responses in guest memory. It is
+  a guest-side dependency: installing or building xfetch never requires it.
 </p>
 
 <h2>Testing</h2>
