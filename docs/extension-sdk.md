@@ -19,6 +19,18 @@
   <li><code>ConfigProviderRequest</code></li>
   <li><code>ConfigProviderResponse</code></li>
   <li><code>ExtensionKind</code></li>
+  <li><code>ExtensionApiError</code></li>
+</ul>
+
+<h2>Entrypoints and Helpers</h2>
+
+<ul>
+  <li><code>read_config_provider_request()</code>: read and validate stdin.</li>
+  <li><code>read_config_provider_args_or_default::&lt;T&gt;()</code>: read the request and parse typed args.</li>
+  <li><code>write_config_provider_response(&amp;response)</code>: write stdout.</li>
+  <li><code>write_config(value)</code>: convenience wrapper for returning a config.</li>
+  <li><code>ConfigProviderRequest::validate()</code>, <code>kind_enum()</code>, <code>parse_args::&lt;T&gt;()</code> and <code>parse_args_or_default::&lt;T&gt;()</code>.</li>
+  <li><code>io</code> helpers: <code>parse_json_str</code>, <code>parse_json_slice</code>, <code>to_json_vec</code>, <code>read_json_from_stdin</code>, <code>write_json_to_stdout</code>.</li>
 </ul>
 
 <h2>Runtime Model</h2>

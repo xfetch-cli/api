@@ -51,12 +51,12 @@ cargo build --release --target wasm32-wasip1</code></pre>
 <pre><code class="language-toml">[dependencies]
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-xfetch-plugin-api = "0.2"
-xfetch-guest-api = "0.2"</code></pre>
+xfetch-plugin-api = "0.3"
+xfetch-guest-api = "0.3"</code></pre>
 
 <p>
   Only the guest depends on <code>xfetch-guest-api</code>; the core does not
-  pull it. With <code>"0.2"</code> Cargo resolves the newest compatible 0.2.x
+  pull it. With <code>"0.3"</code> Cargo resolves the newest compatible 0.3.x
   release, so patch updates arrive without changes on your side.
 </p>
 

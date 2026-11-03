@@ -1,11 +1,13 @@
 # Getting Started
 
 <p>
-  This repository hosts four public crates: <code>xfetch-plugin-api</code>
+  This repository hosts five public crates: <code>xfetch-api-common</code>
+  (shared protocol/IO/timeout primitives), <code>xfetch-plugin-api</code>
   (plugins), <code>xfetch-extension-api</code> (extensions),
   <code>xfetch-effect-api</code> (effects), and <code>xfetch-guest-api</code>
   (host calls for WebAssembly guests). The component protocol lives in
-  <code>wit/xfetch-runtime.wit</code>.
+  <code>wit/xfetch-runtime.wit</code>. The current release line is
+  <strong>0.3.0</strong>.
 </p>
 
 <h2>Git Dependency</h2>
@@ -13,6 +15,7 @@
 <pre><code class="language-toml">[dependencies]
 serde = { version = "1", features = ["derive"] }
 xfetch-plugin-api = { git = "https://github.com/xfetch-cli/api", package = "xfetch-plugin-api" }
+xfetch-api-common = { git = "https://github.com/xfetch-cli/api", package = "xfetch-api-common" }
 xfetch-extension-api = { git = "https://github.com/xfetch-cli/api", package = "xfetch-extension-api" }
 xfetch-effect-api = { git = "https://github.com/xfetch-cli/api", package = "xfetch-effect-api" }
 </code></pre>

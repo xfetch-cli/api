@@ -1,7 +1,7 @@
 # Timeouts
 
 <p>
-  Plugins and extensions have variable runtimes (network calls, daemon
+  Plugins, effects and extensions have variable runtimes (network calls, daemon
   queries, heavy computation), so each one declares its own runtime budget in
   its code. This page explains how that works.
 </p>
@@ -17,9 +17,10 @@
 <h2>The solution: <code>with_timeout</code></h2>
 
 <p>
-  All three crates (<code>xfetch-plugin-api</code>,
-  <code>xfetch-extension-api</code>, <code>xfetch-effect-api</code>) expose the
-  same helper:
+  The implementation is shared by <code>xfetch-api-common</code> and
+  re-exported from all three crates (<code>xfetch-plugin-api</code>,
+  <code>xfetch-extension-api</code>, <code>xfetch-effect-api</code>), which
+  expose the same helper:
 </p>
 
 <pre><code class="language-rust">pub fn with_timeout&lt;T: Send + 'static&gt;(

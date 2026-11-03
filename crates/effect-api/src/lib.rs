@@ -17,6 +17,7 @@ pub use io::{
     parse_json_slice, parse_json_str, read_json_from_stdin, to_json_vec, write_json_to_stdout,
 };
 pub use protocol::{
-    EffectArgs, EffectFrame, EffectRequest, EffectResponse, KIND_EFFECT, PROTOCOL_VERSION,
+    EffectArgs, EffectFrame, EffectKind, EffectRequest, EffectResponse, KIND_EFFECT,
+    PROTOCOL_VERSION,
 };
 pub use timeout::{TimedOut, with_timeout};

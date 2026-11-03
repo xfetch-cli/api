@@ -3,9 +3,9 @@ use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-pub const PROTOCOL_VERSION: u32 = 1;
-pub const KIND_LOGO_ANIMATION: &str = "logo_animation";
-pub const KIND_INFO_PROVIDER: &str = "info_provider";
+pub const PROTOCOL_VERSION: u32 = xfetch_api_common::protocol::JSON_PROTOCOL_VERSION;
+pub const KIND_LOGO_ANIMATION: &str = xfetch_api_common::protocol::KIND_LOGO_ANIMATION;
+pub const KIND_INFO_PROVIDER: &str = xfetch_api_common::protocol::KIND_INFO_PROVIDER;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum PluginKind {
@@ -45,6 +45,18 @@ impl AnimationFrame {
     }
 }
 
+impl From<AnimationFrame> for xfetch_api_common::Frame {
+    fn from(value: AnimationFrame) -> Self {
+        Self::new(value.delay_ms, value.lines)
+    }
+}
+
+impl From<xfetch_api_common::Frame> for AnimationFrame {
+    fn from(value: xfetch_api_common::Frame) -> Self {
+        Self::new(value.delay_ms, value.lines)
+    }
+}
+
 #[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(default)]
 pub struct LogoAnimationArgs {
@@ -61,6 +73,7 @@ pub struct LogoAnimationRequest {
     pub kind: String,
     pub lines: Vec<String>,
     pub frames: Option<Vec<Vec<String>>>,
+    #[serde(default)]
     pub args: LogoAnimationArgs,
 }
 
@@ -81,6 +94,10 @@ impl LogoAnimationRequest {
 
     pub fn validate(&self) -> Result<()> {
         validate_request(self.version, &self.kind, PluginKind::LogoAnimation)
+    }
+
+    pub fn kind_enum(&self) -> Option<PluginKind> {
+        PluginKind::from_wire(&self.kind)
     }
 }
 
@@ -121,6 +138,10 @@ impl InfoPluginRequest {
 
     pub fn validate(&self) -> Result<()> {
         validate_request(self.version, &self.kind, PluginKind::InfoProvider)
+    }
+
+    pub fn kind_enum(&self) -> Option<PluginKind> {
+        PluginKind::from_wire(&self.kind)
     }
 
     pub fn parse_args<T: DeserializeOwned>(&self) -> Result<Option<T>> {
@@ -246,5 +267,23 @@ mod tests {
             response.validate(),
             Err(PluginApiError::EmptyAnimationFrames)
         ));
+    }
+
+    #[test]
+    fn logo_request_allows_missing_args() {
+        let json = r#"{"version":1,"kind":"logo_animation","lines":["x"],"frames":null}"#;
+        let request: LogoAnimationRequest = serde_json::from_str(json).expect("parse request");
+
+        assert_eq!(request.args, LogoAnimationArgs::default());
+        assert_eq!(request.kind_enum(), Some(PluginKind::LogoAnimation));
+    }
+
+    #[test]
+    fn animation_frame_converts_to_shared_frame() {
+        let frame = AnimationFrame::new(16, vec!["line".to_string()]);
+        let shared: xfetch_api_common::Frame = frame.clone().into();
+        let roundtrip: AnimationFrame = shared.into();
+
+        assert_eq!(roundtrip, frame);
     }
 }

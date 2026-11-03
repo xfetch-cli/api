@@ -1,32 +1,29 @@
-use crate::error::{PluginApiError, Result};
+//! JSON stdin/stdout helpers for plugins.
+//!
+//! The actual implementation lives in `xfetch-api-common`; the public
+//! signatures and [`PluginApiError`] mapping are preserved here.
+
 use serde::Serialize;
 use serde::de::DeserializeOwned;
-use std::io::{self, Read, Write};
+
+use crate::error::{PluginApiError, Result};
 
 pub fn parse_json_str<T: DeserializeOwned>(input: &str) -> Result<T> {
-    serde_json::from_str(input).map_err(PluginApiError::Deserialize)
+    xfetch_api_common::io::parse_json_str(input).map_err(PluginApiError::from)
 }
 
 pub fn parse_json_slice<T: DeserializeOwned>(input: &[u8]) -> Result<T> {
-    serde_json::from_slice(input).map_err(PluginApiError::Deserialize)
+    xfetch_api_common::io::parse_json_slice(input).map_err(PluginApiError::from)
 }
 
 pub fn to_json_vec<T: Serialize>(value: &T) -> Result<Vec<u8>> {
-    serde_json::to_vec(value).map_err(PluginApiError::Serialize)
+    xfetch_api_common::io::to_json_vec(value).map_err(PluginApiError::from)
 }
 
 pub fn read_json_from_stdin<T: DeserializeOwned>() -> Result<T> {
-    let mut input = String::new();
-    io::stdin()
-        .read_to_string(&mut input)
-        .map_err(PluginApiError::Io)?;
-
-    parse_json_str(&input)
+    xfetch_api_common::io::read_json_from_stdin().map_err(PluginApiError::from)
 }
 
 pub fn write_json_to_stdout<T: Serialize>(value: &T) -> Result<()> {
-    let body = to_json_vec(value)?;
-    let mut stdout = io::stdout();
-    stdout.write_all(&body).map_err(PluginApiError::Io)?;
-    stdout.flush().map_err(PluginApiError::Io)
+    xfetch_api_common::io::write_json_to_stdout(value).map_err(PluginApiError::from)
 }
