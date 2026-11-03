@@ -3,8 +3,23 @@ use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-pub const PROTOCOL_VERSION: u32 = 1;
-pub const KIND_EFFECT: &str = "effect";
+pub const PROTOCOL_VERSION: u32 = xfetch_api_common::protocol::JSON_PROTOCOL_VERSION;
+pub const KIND_EFFECT: &str = xfetch_api_common::protocol::KIND_EFFECT;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum EffectKind {
+    Effect,
+}
+
+impl EffectKind {
+    pub const fn as_str(self) -> &'static str {
+        KIND_EFFECT
+    }
+
+    pub fn from_wire(kind: &str) -> Option<Self> {
+        (kind == KIND_EFFECT).then_some(Self::Effect)
+    }
+}
 
 /// Parameters an effect can tune. `args` carries effect-specific free-form
 /// parameters (parsed by the effect via `EffectArgs::parse_args`).
@@ -46,6 +61,18 @@ impl EffectFrame {
     }
 }
 
+impl From<EffectFrame> for xfetch_api_common::Frame {
+    fn from(value: EffectFrame) -> Self {
+        Self::new(value.delay_ms, value.lines)
+    }
+}
+
+impl From<xfetch_api_common::Frame> for EffectFrame {
+    fn from(value: xfetch_api_common::Frame) -> Self {
+        Self::new(value.delay_ms, value.lines)
+    }
+}
+
 /// The content lines handed to the effect, as rendered by the core (icon +
 /// value per line). The effect transforms them into per-frame states; the last
 /// frame should reach the original (final) content.
@@ -54,6 +81,7 @@ pub struct EffectRequest {
     pub version: u32,
     pub kind: String,
     pub lines: Vec<String>,
+    #[serde(default)]
     pub args: EffectArgs,
 }
 
@@ -82,6 +110,10 @@ impl EffectRequest {
         }
 
         Ok(())
+    }
+
+    pub fn kind_enum(&self) -> Option<EffectKind> {
+        EffectKind::from_wire(&self.kind)
     }
 }
 
@@ -159,5 +191,23 @@ mod tests {
                 glyphs: "abc".to_string()
             })
         );
+    }
+
+    #[test]
+    fn request_allows_missing_args() {
+        let json = r#"{"version":1,"kind":"effect","lines":["x"]}"#;
+        let request: EffectRequest = serde_json::from_str(json).expect("parse request");
+
+        assert_eq!(request.args, EffectArgs::default());
+        assert_eq!(request.kind_enum(), Some(EffectKind::Effect));
+    }
+
+    #[test]
+    fn effect_frame_converts_to_shared_frame() {
+        let frame = EffectFrame::new(16, vec!["line".to_string()]);
+        let shared: xfetch_api_common::Frame = frame.clone().into();
+        let roundtrip: EffectFrame = shared.into();
+
+        assert_eq!(roundtrip, frame);
     }
 }

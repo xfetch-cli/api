@@ -20,10 +20,11 @@
 <h2>Current Focus</h2>
 
 <p>
-  The public surface is centered on four crates:
+  The public surface is centered on five crates:
+  <code>xfetch-api-common</code> (shared protocol/IO/frame/timeout primitives),
   <code>xfetch-plugin-api</code>, <code>xfetch-extension-api</code>,
   <code>xfetch-effect-api</code>, and <code>xfetch-guest-api</code> (host calls
-  for WebAssembly guests).
+  for WebAssembly guests). The current release line is <strong>0.3.0</strong>.
 </p>
 
 <p>

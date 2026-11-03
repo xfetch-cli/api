@@ -11,7 +11,18 @@
   <li><code>crates/plugin-api/examples/logo-animation-plugin.rs</code></li>
 </ul>
 
-<h2>Effect Examples</h2>
+<h2>Compiled Examples</h2>
+
+<ul>
+  <li><code>crates/effect-api/examples/simple-effect.rs</code></li>
+  <li><code>crates/extension-api/examples/simple-extension.rs</code></li>
+</ul>
+
+<p>
+  Both build with <code>cargo build --workspace --examples</code>.
+</p>
+
+<h2>Effect Implementations</h2>
 
 <p>
   Effect implementations live in the

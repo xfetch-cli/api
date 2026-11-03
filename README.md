@@ -8,19 +8,22 @@
 </p>
 
 <p>
-  Today this repository contains the public plugin SDK used by the core,
-  official plugins, and third-party plugin authors.
+  The current release line is <strong>0.3.0</strong>. It keeps the JSON
+  protocol at version <code>1</code> and the WIT at
+  <code>xfetch:runtime@0.1.0</code>; the changes are additive.
 </p>
 
 <h2>Current Scope</h2>
 
 <ul>
+  <li><code>crates/common</code> (<code>xfetch-api-common</code>): shared protocol constants, frame shape, timeout and JSON IO helpers.</li>
   <li><code>crates/plugin-api</code>: shared protocol crate for xfetch plugins.</li>
   <li><code>crates/extension-api</code>: shared protocol crate for xfetch extensions (config providers).</li>
   <li><code>crates/effect-api</code>: shared protocol crate for xfetch effects (intro animations over the info lines).</li>
   <li><code>crates/guest-api</code>: host-call helpers for WebAssembly guests (<code>http_request</code>, <code>exec</code>, <code>log</code>, <code>protocol_version</code>).</li>
   <li><code>wit/xfetch-runtime.wit</code>: component-model contract (<code>plugin</code>, <code>effect</code> and <code>extension</code> worlds).</li>
   <li><code>docs/</code>: focused documentation for setup, protocol, SDK usage, wasm guests, and examples.</li>
+  <li><code>examples/</code>: minimal plugin, effect and extension binaries that compile against the public crates.</li>
 </ul>
 
 <h2>Main Crate</h2>
@@ -60,6 +63,8 @@
   <li><a href="./docs/getting-started.md">Getting Started</a></li>
   <li><a href="./docs/plugin-sdk.md">Plugin SDK</a></li>
   <li><a href="./docs/protocol.md">Protocol Reference</a></li>
+  <li><a href="./docs/extension-sdk.md">Extension SDK</a></li>
+  <li><a href="./docs/effect-sdk.md">Effect SDK</a></li>
   <li><a href="./docs/examples.md">Examples</a></li>
 </ul>
 
@@ -69,4 +74,5 @@
   <li>This repository owns shared contracts, not end-user config files.</li>
   <li>Official plugins are expected to use the same public SDK as external plugins.</li>
   <li>Protocol changes should land here first and then be adopted by the core and plugin repos.</li>
+  <li>Publishing order: <code>xfetch-api-common</code> first, then <code>xfetch-plugin-api</code>, <code>xfetch-extension-api</code> and <code>xfetch-effect-api</code>; <code>xfetch-guest-api</code> is independent.</li>
 </ul>

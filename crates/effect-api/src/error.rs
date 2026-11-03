@@ -58,3 +58,19 @@ impl From<std::io::Error> for EffectApiError {
         Self::Io(value)
     }
 }
+
+impl From<serde_json::Error> for EffectApiError {
+    fn from(value: serde_json::Error) -> Self {
+        Self::Deserialize(value)
+    }
+}
+
+impl From<xfetch_api_common::IoError> for EffectApiError {
+    fn from(value: xfetch_api_common::IoError) -> Self {
+        match value {
+            xfetch_api_common::IoError::Io(err) => Self::Io(err),
+            xfetch_api_common::IoError::Serialize(err) => Self::Serialize(err),
+            xfetch_api_common::IoError::Deserialize(err) => Self::Deserialize(err),
+        }
+    }
+}
