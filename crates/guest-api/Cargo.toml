@@ -1,6 +1,6 @@
 [package]
 name = "xfetch-guest-api"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2024"
 license = "MIT"
 description = "Host-call helpers for xfetch WebAssembly guests"

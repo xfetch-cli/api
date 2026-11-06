@@ -9,6 +9,7 @@ Shared primitives for the xfetch addon SDK crates:
 
 This crate intentionally contains no per-kind request/response types.
 Plugins, effects and extensions keep their own contracts in
-`xfetch-plugin-api`, `xfetch-effect-api` and `xfetch-extension-api`.
+`xfetch-plugin-api`, `xfetch-effect-api`, `xfetch-extension-api` and
+`xfetch-command-api`.
 
 Published first, before the per-kind crates.

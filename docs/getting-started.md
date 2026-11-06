@@ -7,7 +7,7 @@
   <code>xfetch-effect-api</code> (effects), and <code>xfetch-guest-api</code>
   (host calls for WebAssembly guests). The component protocol lives in
   <code>wit/xfetch-runtime.wit</code>. The current release line is
-  <strong>0.3.0</strong>.
+  <strong>0.3.1</strong>.
 </p>
 
 <h2>Git Dependency</h2>

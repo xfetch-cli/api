@@ -8,7 +8,7 @@
 </p>
 
 <p>
-  The current release line is <strong>0.3.0</strong>. It keeps the JSON
+  The current release line is <strong>0.3.1</strong>. It keeps the JSON
   protocol at version <code>1</code> and the WIT at
   <code>xfetch:runtime@0.1.0</code>; the changes are additive.
 </p>
@@ -21,7 +21,8 @@
   <li><code>crates/extension-api</code>: shared protocol crate for xfetch extensions (config providers).</li>
   <li><code>crates/effect-api</code>: shared protocol crate for xfetch effects (intro animations over the info lines).</li>
   <li><code>crates/guest-api</code>: host-call helpers for WebAssembly guests (<code>http_request</code>, <code>exec</code>, <code>log</code>, <code>protocol_version</code>).</li>
-  <li><code>wit/xfetch-runtime.wit</code>: component-model contract (<code>plugin</code>, <code>effect</code> and <code>extension</code> worlds).</li>
+  <li><code>crates/command-api</code>: shared protocol crate for CLI command addons.</li>
+  <li><code>wit/xfetch-runtime.wit</code>: component-model contract (<code>plugin</code>, <code>effect</code>, <code>extension</code> and <code>command</code> worlds).</li>
   <li><code>docs/</code>: focused documentation for setup, protocol, SDK usage, wasm guests, and examples.</li>
   <li><code>examples/</code>: minimal plugin, effect and extension binaries that compile against the public crates.</li>
 </ul>
@@ -65,6 +66,7 @@
   <li><a href="./docs/protocol.md">Protocol Reference</a></li>
   <li><a href="./docs/extension-sdk.md">Extension SDK</a></li>
   <li><a href="./docs/effect-sdk.md">Effect SDK</a></li>
+  <li><a href="./docs/command-sdk.md">Command SDK</a></li>
   <li><a href="./docs/examples.md">Examples</a></li>
 </ul>
 
@@ -74,5 +76,5 @@
   <li>This repository owns shared contracts, not end-user config files.</li>
   <li>Official plugins are expected to use the same public SDK as external plugins.</li>
   <li>Protocol changes should land here first and then be adopted by the core and plugin repos.</li>
-  <li>Publishing order: <code>xfetch-api-common</code> first, then <code>xfetch-plugin-api</code>, <code>xfetch-extension-api</code> and <code>xfetch-effect-api</code>; <code>xfetch-guest-api</code> is independent.</li>
+  <li>Publishing order: <code>xfetch-api-common</code> first, then <code>xfetch-plugin-api</code>, <code>xfetch-extension-api</code>, <code>xfetch-effect-api</code> and <code>xfetch-command-api</code>; <code>xfetch-guest-api</code> is independent.</li>
 </ul>

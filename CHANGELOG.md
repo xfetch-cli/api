@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.1
+
+### Command kind
+
+- Added the `command` WIT world and the `xfetch-command-api` crate for CLI
+  command addons.
+- Command requests are JSON; command responses are plain text lines.
+- Bumped all API crates to 0.3.1.
+
 ## 2026-11-03 — v0.3.0
 
 ### Added

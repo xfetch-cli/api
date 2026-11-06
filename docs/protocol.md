@@ -11,6 +11,7 @@
   <li><code>info_provider</code></li>
   <li><code>effect</code></li>
   <li><code>config_provider</code> (extension protocol)</li>
+  <li><code>command</code> (CLI command protocol; plain-text response)</li>
 </ul>
 
 <h2>Logo Animation Request</h2>
@@ -105,6 +106,35 @@
 <pre><code class="language-json">{
   "config": { "show_colors": false, "modules": ["cpu", "memory"] }
 }</code></pre>
+
+<h2>Command Request</h2>
+
+<p>
+  Command addons receive positional arguments and return plain text lines. The
+  request is JSON; the response is not.
+</p>
+
+<pre><code class="language-json">{
+  "version": 1,
+  "kind": "command",
+  "command": "github",
+  "args": ["owner/repo"],
+  "cwd": "/home/user/project",
+  "env": {}
+}</code></pre>
+
+<h2>Command Response</h2>
+
+<pre><code class="language-text">repo: owner/repo
+author: owner
+languages: C, JavaScript, PHP
+stars: 1234
+</code></pre>
+
+<p>
+  The core prints the response as-is unless a layout is requested. Lines are
+  separated by <code>\n</code>; stderr is reserved for diagnostics.
+</p>
 
 <h2>WebAssembly Guests</h2>
 
