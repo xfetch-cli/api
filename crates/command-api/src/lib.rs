@@ -4,7 +4,6 @@
 //! commands may also use process arguments; wasm commands read the JSON
 //! request from stdin (or from the component `run` request string).
 
-use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::io::{Read, Write};
@@ -106,11 +105,6 @@ pub fn format_lines(lines: &[String]) -> String {
 /// Writes one line per item, terminated by a newline.
 pub fn write_command_lines(lines: &[String]) -> Result<(), String> {
     write_command_text(&format_lines(lines))
-}
-
-/// Parses JSON with a command-oriented error message.
-pub fn parse_json<T: DeserializeOwned>(input: &str) -> Result<T, String> {
-    serde_json::from_str(input).map_err(|err| format!("invalid JSON: {err}"))
 }
 
 #[cfg(test)]

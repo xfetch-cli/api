@@ -24,7 +24,7 @@
   <li><code>crates/command-api</code>: shared protocol crate for CLI command addons.</li>
   <li><code>wit/xfetch-runtime.wit</code>: component-model contract (<code>plugin</code>, <code>effect</code>, <code>extension</code> and <code>command</code> worlds).</li>
   <li><code>docs/</code>: focused documentation for setup, protocol, SDK usage, wasm guests, and examples.</li>
-  <li><code>examples/</code>: minimal plugin, effect and extension binaries that compile against the public crates.</li>
+  <li><code>crates/*/examples/</code>: minimal plugin, effect and extension binaries that compile against the public crates.</li>
 </ul>
 
 <h2>Main Crate</h2>
@@ -56,6 +56,16 @@
   <li>Response is a non-empty list of <code>EffectFrame { delay_ms, lines }</code>.</li>
   <li>Effects are opt-in: a missing binary or invalid response simply skips the intro (no behavior change).</li>
 </ul>
+
+<h2>Command API</h2>
+
+<p>
+  <code>crates/command-api</code> (<code>xfetch-command-api</code>) is the
+  contract for CLI command addons. Commands receive arguments and return plain
+  text lines, so a command owns its own output format. Components use the
+  <code>command</code> world in the WIT package; core modules use the JSON
+  request on stdin and plain text on stdout.
+</p>
 
 <h2>Documentation</h2>
 
