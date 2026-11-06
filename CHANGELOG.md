@@ -1,13 +1,23 @@
 # Changelog
 
-## 0.3.1
+## 2026-11-06 — v0.3.1
 
-### Command kind
+### Added
 
-- Added the `command` WIT world and the `xfetch-command-api` crate for CLI
-  command addons.
-- Command requests are JSON; command responses are plain text lines.
-- Bumped all API crates to 0.3.1.
+- New `command` world in `wit/xfetch-runtime.wit` for CLI command addons. The
+  request is JSON and the response is plain text lines.
+- New `xfetch-command-api` crate with the command request type, stdin/stdout
+  helpers and line formatting utilities.
+- `docs/command-sdk.md` documents the command protocol, Rust core-module
+  example, component world and native command conventions.
+
+### Changed
+
+- All API crates bumped to `0.3.1`.
+- `xfetch-guest-api` no longer declares an unused direct `serde` dependency.
+- Removed the unused `parse_json` helper from `xfetch-command-api`.
+- Updated the protocol reference, WebAssembly guest guide, README, ROADMAP and
+  getting-started guide for the command kind and 0.3.1.
 
 ## 2026-11-03 — v0.3.0
 
