@@ -1,7 +1,8 @@
 # WebAssembly Guests
 
 <p>
-  xfetch can run plugins, effects and extensions compiled to WebAssembly. This
+  xfetch can run plugins, effects, extensions and command addons compiled to
+  WebAssembly. This
   guide covers the authoring side; the runtime reference (manifest schema and
   CLI tooling) lives in the core repository at
   <code>xfetch/docs/WASM.md</code>.
@@ -32,6 +33,12 @@
   plugins only need a new target and a manifest. Components use the typed WIT
   contract in <code>wit/xfetch-runtime.wit</code>, printable with
   <code>xfetch wasm wit</code>.
+</p>
+
+<p>
+  Command guests use the <code>command</code> world. The request string is JSON;
+  the response is plain text lines. Core modules read the JSON request from
+  stdin and write text to stdout.
 </p>
 
 <h2>Rust Core Modules</h2>

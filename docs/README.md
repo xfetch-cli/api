@@ -11,6 +11,7 @@
   <li><a href="./plugin-sdk.md">Plugin SDK</a>: public types, entrypoints, and error handling.</li>
   <li><a href="./extension-sdk.md">Extension SDK</a>: public types and the config-provider protocol.</li>
   <li><a href="./effect-sdk.md">Effect SDK</a>: public types, entrypoints, and error handling.</li>
+  <li><a href="./command-sdk.md">Command SDK</a>: CLI command addons and the line-oriented output contract.</li>
   <li><a href="./protocol.md">Protocol Reference</a>: wire formats, kinds, versioning, and JSON examples.</li>
   <li><a href="./timeouts.md">Timeouts</a>: the <code>with_timeout</code> helper and runtime budgets.</li>
   <li><a href="./wasm-guests.md">WebAssembly Guests</a>: building core modules and components in Rust, Python, Go and C.</li>
@@ -20,11 +21,12 @@
 <h2>Current Focus</h2>
 
 <p>
-  The public surface is centered on five crates:
+  The public surface is centered on six crates:
   <code>xfetch-api-common</code> (shared protocol/IO/frame/timeout primitives),
   <code>xfetch-plugin-api</code>, <code>xfetch-extension-api</code>,
-  <code>xfetch-effect-api</code>, and <code>xfetch-guest-api</code> (host calls
-  for WebAssembly guests). The current release line is <strong>0.3.0</strong>.
+  <code>xfetch-effect-api</code>, <code>xfetch-command-api</code>, and
+  <code>xfetch-guest-api</code> (host calls for WebAssembly guests). The current
+  release line is <strong>0.3.1</strong>.
 </p>
 
 <p>
