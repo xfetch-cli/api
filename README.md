@@ -96,7 +96,10 @@
   permission under GNU GPL version 3 section 7: addon code (plugins,
   extensions, effects or commands) that links or combines with the API is not
   required to be GPL and remains under the license declared by its author.
-  The API code itself, and modifications to it, remain GPL-3.0-only.
+  This includes addons authored outside the xfetch project, including addons
+  with external contributions. First-party addons authored by xscriptor are
+  GPL-3.0-only. The API code itself, and modifications to it, remain
+  GPL-3.0-only.
   Conveying a combined work still requires GPL compliance for the API
   portions. See <a href="./LICENSE">LICENSE</a>.
 </p>
