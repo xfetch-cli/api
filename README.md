@@ -88,3 +88,15 @@
   <li>Protocol changes should land here first and then be adopted by the core and plugin repos.</li>
   <li>Publishing order: <code>xfetch-api-common</code> first, then <code>xfetch-plugin-api</code>, <code>xfetch-extension-api</code>, <code>xfetch-effect-api</code> and <code>xfetch-command-api</code>; <code>xfetch-guest-api</code> is independent.</li>
 </ul>
+
+<h2>License</h2>
+
+<p>
+  The API crates are licensed under GPL-3.0-only, with an additional
+  permission under GNU GPL version 3 section 7: addon code (plugins,
+  extensions, effects or commands) that links or combines with the API is not
+  required to be GPL and remains under the license declared by its author.
+  The API code itself, and modifications to it, remain GPL-3.0-only.
+  Conveying a combined work still requires GPL compliance for the API
+  portions. See <a href="./LICENSE">LICENSE</a>.
+</p>

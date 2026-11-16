@@ -45,3 +45,13 @@
   Be respectful, constructive, and collaborative. Harassment, trolling, and
   personal attacks are not tolerated.
 </p>
+
+<h2>License</h2>
+
+<p>
+  The API crates are licensed under GPL-3.0-only with the additional
+  permission described in <a href="./LICENSE">LICENSE</a>. By contributing,
+  you agree that your contribution is licensed under those terms. You retain
+  copyright in your contribution. Certify the Developer Certificate of Origin
+  with a <code>Signed-off-by</code> trailer.
+</p>
