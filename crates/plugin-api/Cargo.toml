@@ -2,7 +2,8 @@
 name = "xfetch-plugin-api"
 version = "0.3.1"
 edition = "2024"
-license = "MIT"
+license = "GPL-3.0-only"
+license-file = "../../LICENSE"
 description = "Shared plugin protocol types and IO helpers for xfetch"
 repository = "https://github.com/xfetch-cli/api"
 

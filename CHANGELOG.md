@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Relicensed the API crates under GPL-3.0-only with an additional permission
+  under GPLv3 section 7. Addon code that consumes the API remains under the
+  license declared by its author; the API code itself remains GPL-3.0-only.
+
 ## 2026-11-06 — v0.3.1
 
 ### Added
